@@ -1,0 +1,148 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      4846,        140]
+NotebookOptionsPosition[      4529,        125]
+NotebookOutlinePosition[      4885,        141]
+CellTagsIndexPosition[      4842,        138]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"raw", " ", "=", " ", 
+   RowBox[{"OpenRead", "[", "\"\<reviews.csv\>\"", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"reviews", " ", "=", " ", 
+    RowBox[{"Map", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"StringSplit", "[", 
+        RowBox[{"#", ",", " ", "\"\<|\>\""}], "]"}], "&"}], ",", " ", 
+      RowBox[{"ReadList", "[", 
+       RowBox[{"raw", ",", " ", "String"}], "]"}]}], "]"}]}], ";"}], "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"start", " ", "pre"}], "-", 
+    RowBox[{"processing", " ", "data"}]}], "*)"}], "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"spell", " ", "checking"}], ",", " ", "tokenization", ",", " ", 
+    RowBox[{"remove", " ", "symbols"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"extract", " ", "words", " ", "from", " ", "dataset"}], 
+   "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{"numOfReviews", "=", 
+   RowBox[{"Length", "[", "reviews", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"indexOfReviews", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"$RecursionLimit", "=", "Infinity"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"reviewsWords", " ", "=", " ", 
+   RowBox[{"List", "[", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"While", "[", 
+   RowBox[{
+    RowBox[{"indexOfReviews", "\[LessEqual]", " ", "50"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"review", "=", 
+      RowBox[{"reviews", "[", 
+       RowBox[{"[", "indexOfReviews", "]"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"reviewStr", "=", 
+      RowBox[{"review", "[", 
+       RowBox[{"[", "2", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"newReviewStr", " ", "=", " ", 
+      RowBox[{"DeleteStopwords", "[", "reviewStr", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"reviewWords", "=", 
+      RowBox[{"TextWords", "[", "newReviewStr", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"reviewsWords", " ", "=", " ", 
+      RowBox[{"Append", "[", 
+       RowBox[{"reviewsWords", ",", " ", "reviewWords"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"indexOfReviews", "++"}], ";"}]}], "\[IndentingNewLine]", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"Export", "[", 
+    RowBox[{"\"\<test.mx\>\"", ",", " ", "reviewsWords"}], "]"}], ";"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"feature", " ", "extractor", " ", "TF"}], "-", "IDF"}], 
+   "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"fe", " ", "=", " ", 
+    RowBox[{"FeatureExtraction", "[", 
+     RowBox[{"reviewWords", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"\"\<TFIDF\>\"", ",", " ", "\"\<DimensionReducedVector\>\""}], 
+       "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"Dimension", " ", "Reduce"}], "*)"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"create", " ", "training", " ", "dataset"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"create", " ", "testing", " ", "dataset"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"train", " ", "SVM"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"(*", "test", "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.7087569767427683`*^9, 3.708756983819405*^9}, {
+   3.708802950058564*^9, 3.708802969848116*^9}, {3.7088033826372757`*^9, 
+   3.708803391392098*^9}, 3.708803632217546*^9, {3.7088037370400877`*^9, 
+   3.7088037438402433`*^9}, {3.708803959545011*^9, 3.708803964356824*^9}, {
+   3.7088040165996323`*^9, 3.708804035015415*^9}, 3.708804085988833*^9, {
+   3.7088044229685507`*^9, 3.708804423168284*^9}, {3.7088045760565863`*^9, 
+   3.708804608210208*^9}},ExpressionUUID->"e438ac2d-d1bc-4d29-be68-\
+518759383d4e"]
+},
+WindowSize->{808, 839},
+WindowMargins->{{343, Automatic}, {22, Automatic}},
+FrontEndVersion->"11.1 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 27, \
+2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 3967, 103, 579, "Input", "ExpressionUUID" -> \
+"e438ac2d-d1bc-4d29-be68-518759383d4e"]
+}
+]
+*)
+

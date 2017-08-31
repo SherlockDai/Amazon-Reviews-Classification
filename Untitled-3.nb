@@ -1,0 +1,119 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      3503,        111]
+NotebookOptionsPosition[      3187,         96]
+NotebookOutlinePosition[      3543,        112]
+CellTagsIndexPosition[      3500,        109]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"raw", " ", "=", " ", 
+   RowBox[{"OpenRead", "[", "\"\<reviews.csv\>\"", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"reviews", " ", "=", " ", 
+    RowBox[{"Map", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"StringSplit", "[", 
+        RowBox[{"#", ",", " ", "\"\<|\>\""}], "]"}], "&"}], ",", " ", 
+      RowBox[{"ReadList", "[", 
+       RowBox[{"raw", ",", " ", "String"}], "]"}]}], "]"}]}], ";"}], "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"start", " ", "pre"}], "-", 
+    RowBox[{"processing", " ", "data"}]}], "*)"}], "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"spell", " ", "checking"}], ",", " ", "tokenization", ",", " ", 
+    RowBox[{"remove", " ", "symbols"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"extract", " ", "words", " ", "from", " ", "dataset"}], 
+   "*)"}]}], "\n", 
+ RowBox[{
+  RowBox[{"numOfReviews", "=", 
+   RowBox[{"Length", "[", "reviews", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"indexOfReviews", "=", "2"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"$RecursionLimit", "=", "Infinity"}], ";"}], "\[IndentingNewLine]", 
+
+ RowBox[{
+  RowBox[{
+   RowBox[{"preProcessedWords", " ", "=", " ", 
+    RowBox[{"List", "[", "]"}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"review", "=", 
+   RowBox[{"reviews", "[", 
+    RowBox[{"[", "indexOfReviews", "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"reviewStr", "=", 
+   RowBox[{"review", "[", 
+    RowBox[{"[", "2", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"newReviewStr", " ", "=", " ", 
+   RowBox[{"DeleteStopwords", "[", "reviewStr", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"reviewWords", "=", 
+   RowBox[{"TextWords", "[", "newReviewStr", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"reviews", "[", 
+   RowBox[{"[", "indexOfReviews", "]"}], "]"}], " ", "=", " ", 
+  RowBox[{"ReplacePart", "[", 
+   RowBox[{
+    RowBox[{"reviews", "[", 
+     RowBox[{"[", "indexOfReviews", "]"}], "]"}], ",", 
+    RowBox[{"2", "\[Rule]", "reviewWords"}]}], "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"preProcessedWords", " ", "=", " ", 
+  RowBox[{"Append", "[", 
+   RowBox[{"preProcessedWords", ",", " ", "reviewWords"}], 
+   "]"}]}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.708795811064502*^9, 
+  3.7087958161762743`*^9}},ExpressionUUID->"a292f52c-12c5-4a51-90b7-\
+bfa650b3b4a9"]
+},
+WindowSize->{808, 835},
+WindowMargins->{{265, Automatic}, {Automatic, 40}},
+FrontEndVersion->"11.1 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 27, \
+2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 2625, 74, 390, "Input", "ExpressionUUID" -> \
+"a292f52c-12c5-4a51-90b7-bfa650b3b4a9"]
+}
+]
+*)
+
